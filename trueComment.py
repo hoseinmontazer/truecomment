@@ -26,10 +26,11 @@ class BaseHandler(tornado.web.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        self.render("index.html",)
+        self.render("url.html",)
     def post(self):
         url = self.get_argument("url")
         print(url)
+        self.render("comment.html",)       
 
 
 def main():

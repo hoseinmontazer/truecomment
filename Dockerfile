@@ -7,4 +7,4 @@ RUN pip3 install pycurl
 RUN pip3 install uuid
 RUN pip3 install asyncio
 RUN pip3 install tornado
-CMD [ "python3", "./trueComment.py" ]
+CMD [ "python3", "-u","./trueComment.py" ]
