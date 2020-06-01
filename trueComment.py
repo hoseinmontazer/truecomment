@@ -11,9 +11,9 @@ class db:
     def coneectdb():
         mydb = mysql.connector.connect(
         host="172.17.0.4",
-        user="hoseinm",
+        user="root",
         passwd="123456",
-        database="chat",
+        database="url",
         auth_plugin="mysql_native_password"
         )
         return mydb
@@ -30,7 +30,7 @@ class MainHandler(BaseHandler):
     def post(self):
         url = self.get_argument("url")
         print(url)
-        self.render("comment.html",)       
+        self.render("comment.html",message= url)       
 
 
 def main():
