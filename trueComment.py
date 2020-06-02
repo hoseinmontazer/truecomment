@@ -2,8 +2,11 @@ import tornado.ioloop
 import tornado.web
 from tornado.options import define, options, parse_command_line
 import os.path
+import requests
+from bs4 import BeautifulSoup
+import re
 
-define("port", default=8888, help="run on the given port", type=int)
+define("port", default=8887, help="run on the given port", type=int)
 define("debug", default=True, help="run in debug mode")
 
 
@@ -28,9 +31,15 @@ class MainHandler(BaseHandler):
     def get(self):
         self.render("url.html",)
     def post(self):
-        url = self.get_argument("url")
-        print(url)
-        self.render("comment.html",message= url)       
+        url = str(self.get_argument("url"))
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        name = soup.find(class_="c-product__title")
+        image = str(soup.find(class_="c-gallery__img"))
+        img = re.search("https://(.*?)/?.jpg",image)
+        print(img.group())
+        i = {"name": name.text.strip()}
+        self.render("comment.html", message=i)     
 
 
 def main():
