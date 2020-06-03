@@ -32,14 +32,23 @@ class MainHandler(BaseHandler):
         self.render("url.html",)
     def post(self):
         url = str(self.get_argument("url"))
-        page = requests.get(url)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        name = soup.find(class_="c-product__title")
-        image = str(soup.find(class_="c-gallery__img"))
-        img = re.search("https://(.*?)/?.jpg",image)
-        print(img.group())
-        i = {"name": name.text.strip()}
-        self.render("comment.html", message=i)     
+        if "https://www.digikala.com/" in url:
+            url = str(self.get_argument("url"))
+            page = requests.get(url)
+            soup = BeautifulSoup(page.content, 'html.parser')
+            name = soup.find(class_="c-product__title")
+            if name:
+                image = str(soup.find(class_="c-gallery__img"))
+                img = re.search("https://(.*?)/?.jpg",image)
+                params= soup.find(class_="c-product js-product")
+                print(params)
+                print(img.group())
+                #i = {"name": name.text.strip(), "image":img.group()}
+                self.render("comment.html", message=params)
+            else:
+                self.render("comment.html", message="please enter true url")
+        else:
+           self.render("comment.html", message="please enter true url")   
 
 
 def main():
