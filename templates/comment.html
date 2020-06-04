@@ -4,7 +4,13 @@
 
   </head>
   <body>
-          {{ message }}
+           <div>
+            {% module Template("message.html", message=message) %}
+           </div>
+           <div>
+            <div>
+              {% module linkify(message['hi']) %}
+            </div>
   </body>
 
 </html>

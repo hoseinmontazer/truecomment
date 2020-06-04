@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+         {% for item in message %}
+            <li><a href= {{ escape(item) }} > {{ escape(item) }} </a></li>
+         {% end %}    
+  </body>
+
+</html>
