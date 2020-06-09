@@ -5,7 +5,7 @@ import os.path
 import requests
 from bs4 import BeautifulSoup
 import re
-from googlesearch import search
+from google import google
 
 
 define("port", default=8887, help="run on the given port", type=int)
@@ -56,10 +56,22 @@ class MainHandler(BaseHandler):
                 i = searchUrl.DigikalaUrl(self)
                 self.render("comment.html", message=i)
             else:
+                sealink=[]
+                seadec=[]
+                search_results = google.search(url, 3)
+                for result in search_results:
+                    print(result.link)
+                    sealink.append(str(result.link))
+                    seadec.append(str(result.description))
+                
+                sea = {"link":sealink , "dec":seadec}
+                self.render("search.html", message=(sea))
+                '''
                 sea = []
-                for j in search(url, tld="co.in", num=10, stop=10, pause=2): 
+                for j in search(url, tld="com", num=10, stop=10, pause=2): 
                     sea.append(j)
                 self.render("search.html", message=sea)
+                '''
         else:
           self.render("comment.html", message="please enter antthing")    
 

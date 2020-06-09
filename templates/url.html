@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/7b5dab4d7c.js" crossorigin="anonymous"></script>
+    <title>search</title>
+    <link rel="stylesheet" href="{{ static_url("url.css") }}" type="text/css">
 
   </head>
-  <body>
-      <div>
-          <form action="/"  method="post"  >
-            <input type="text" name="url" >
-            <input type="submit"  value="Find comment">
+  <body class="body">
+      <div class="wrap">
+        <div>
+          <p>please write your digikala.com url or any word for search!</p>
+        </div>
+          <form class="search" action="/"  method="post"  >
+            <input type="text" name="url" class="searchTerm" placeholder="What are you looking for?">
+            <button type="submit" class="searchButton">
+              <i class="fa fa-search"></i>
+           </button>
           </form>
-      </div>
+        </div>
 
 
   </body>
