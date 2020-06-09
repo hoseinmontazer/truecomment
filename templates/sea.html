@@ -1,0 +1,9 @@
+
+    
+{% for item in message['link'] %}
+    <li class="list-group-item">
+    <a href= {{ escape(item) }}> {{ escape(item) }} </a>
+    </li>
+{% end %}
+    
+    
