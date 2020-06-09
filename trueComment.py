@@ -61,7 +61,7 @@ class MainHandler(BaseHandler):
                     sea.append(j)
                 self.render("search.html", message=sea)
         else:
-           self.render("comment.html", message="please enter antthing")   
+          self.render("comment.html", message="please enter antthing")    
 
 
 def main():
