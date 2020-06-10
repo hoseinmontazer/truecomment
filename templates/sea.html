@@ -1,9 +1,5 @@
 
-    
-{% for item in message['link'] %}
-    <li class="list-group-item">
-    <a href= {{ escape(item) }}> {{ escape(item) }} </a>
-    </li>
-{% end %}
+<div> {% json.dumps (message['link']) %}  </div>
+<div>{% json.dumps (message['dec']) %}  </div>
     
     

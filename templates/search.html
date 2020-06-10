@@ -9,8 +9,15 @@
   </head>
   <body>
     <div class="list-group comment">
-      
-        {% module Template("sea.html", message=message) %}
+
+        {% for item_a, item_b in zip(message['link'],message['dec']) %}
+        <li class="list-group-item">
+          <a href="{{ escape(item_a) }}">{{ escape(item_a) }} </a>
+          <p>
+            {{ escape(item_b) }}
+          </p>
+        </li>    
+        {% end %}
 
 
 
