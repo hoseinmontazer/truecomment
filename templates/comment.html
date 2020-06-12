@@ -6,21 +6,26 @@
     <title>search</title>
     <link rel="stylesheet" href="{{ static_url("url.css") }}" type="text/css">
   </head>
+<header>
+  <h1>True comment!</h1>
+</header>
   <body>
-    <div class="pyno">
-      <div>
-           <div class="headerSearch">
-           </div>
-           <div class="searchContent">
-            {% module Template("message.html", message=message) %}
-           </div>
-           <div class="comment_title">
-             <p>Comment</p>
-      </div>
-           </div>
-            <div class="truecomment">
-              {% module linkify(message['hi']) %}
-            </div>
+    <div>
+        <div class="col50">
+        <fieldset>
+             <div class="headerSearch">
+             </div>
+             <div class="searchContent">
+              {% module Template("message.html", message=message) %}
+             </div>
+        </fieldset>
+        <fieldset>
+            <h3>Comment</h3>
+            <li>
+            {% module linkify(message['hi']) %}
+          </li>
+        </fieldset>
+        </div>
    </div>
   </body>
 
