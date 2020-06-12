@@ -1,8 +1,69 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 body{
-  background: #f2f2f2;
-  font-family: 'Open Sans', sans-serif;
+  direction: rtl;
+  background: #F6F1D1;
+  font-family: Vazir;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('vazir/Vazir.eot');
+    src: url('vazir/Vazir.eot?#iefix') format('embedded-opentype'),
+         url('vazir/Vazir.woff2') format('woff2'),
+         url('vazir/Vazir.woff') format('woff'),
+         url('vazir/Vazir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('vazir/Vazir-Bold.eot');
+    src: url('vazir/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+         url('vazir/Vazir-Bold.woff2') format('woff2'),
+         url('vazir/Vazir-Bold.woff') format('woff'),
+         url('vazir/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('vazir/Vazir-Black.eot');
+    src: url('vazir/Vazir-Black.eot?#iefix') format('embedded-opentype'),
+         url('vazir/Vazir-Black.woff2') format('woff2'),
+         url('vazir/Vazir-Black.woff') format('woff'),
+         url('vazir/Vazir-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('vazir/Vazir-Medium.eot');
+    src: url('vazir/Vazir-Medium.eot?#iefix') format('embedded-opentype'),
+         url('vazir/Vazir-Medium.woff2') format('woff2'),
+         url('vazir/Vazir-Medium.woff') format('woff'),
+         url('vazir/Vazir-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('vazir/Vazir-Light.eot');
+    src: url('vazir/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+         url('vazir/Vazir-Light.woff2') format('woff2'),
+         url('vazir/Vazir-Light.woff') format('woff'),
+         url('vazir/Vazir-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('vazir/Vazir-Thin.eot');
+    src: url('vazir/Vazir-Thin.eot?#iefix') format('embedded-opentype'),
+         url('vazir/Vazir-Thin.woff2') format('woff2'),
+         url('vazir/Vazir-Thin.woff') format('woff'),
+         url('vazir/Vazir-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
 }
 
 .search {
@@ -48,4 +109,66 @@ body{
 }
 .comment{
   margin: 20px;
+}
+.sea{
+  padding-bottom: 10px;
+  width: 70%;
+  position: relative;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+.pyno{
+  width: 100%;
+  position: absolute;
+  margin: -9px;
+
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    background: #f2f2f2;
+    border: 1px solid rgba(0,0,0,.125);
+}
+.searchContent{
+  padding-bottom: 15px;
+  left: 90%;
+}
+.nameContent{
+  width: 100%;
+  margin: .8rem 0;
+  font-family: Vazir;
+  font-weight: 700;
+  font-size: 1.143rem;
+  line-height: 24px;
+  color: #000;
+  padding: 30px;
+}
+.truecomment{
+    margin-top: 40px;
+}
+
+.comment_title{
+  margin-top: 10px;
+  text-align: center;
+  border: 0.5px solid #0c0c0c4d;
+  border-radius: 5px;
+}
+p.comment_title{
+  text-align: center;
+}
+.imageContent{
+  padding-right: 15px;
+  height: 240px;
+  width: 240px;
+}
+.headerSearch{
+  background: #0b8dde;
+  width: 100%;
+  height: 50px;
+  ￼border-bottom-right-radius: 10px;
+  border-bottom-left-radius:10px;
+
 }

@@ -60,7 +60,7 @@ class MainHandler(BaseHandler):
                 seadec=[]
                 search_results = google.search(url, 3)
                 for result in search_results:
-                    print(result.link)
+                    #print(result.link)
                     sealink.append(str(result.link))
                     seadec.append(str(result.description))
                 

@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>search</title>
+    <link rel="stylesheet" href="{{ static_url("url.css") }}" type="text/css">
   </head>
   <body>
-           <div>
+    <div class="pyno">
+      <div>
+           <div class="headerSearch">
+           </div>
+           <div class="searchContent">
             {% module Template("message.html", message=message) %}
            </div>
-           <div>
-            <div>
+           <div class="comment_title">
+             <p>Comment</p>
+      </div>
+           </div>
+            <div class="truecomment">
               {% module linkify(message['hi']) %}
             </div>
+   </div>
   </body>
 
 </html>

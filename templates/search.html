@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>search</title>
     <link rel="stylesheet" href="{{ static_url("url.css") }}" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
+    <script src="https://kit.fontawesome.com/7b5dab4d7c.js" crossorigin="anonymous"></script>
   <body>
-    <div class="list-group comment">
-
-        {% for item_a, item_b in zip(message['link'],message['dec']) %}
-        <li class="list-group-item">
-          <a href="{{ escape(item_a) }}">{{ escape(item_a) }} </a>
-          <p>
-            {{ escape(item_b) }}
-          </p>
-        </li>    
-        {% end %}
-
-
-
+    <div class="pyno">
+      <div class="sea" >
+        <div>
+          <p>please search your digikala  url for trucomment ! or  search any word !</p>
+        </div>
+          <form class="search" action="/"  method="post"  >
+            <input type="text" name="url" class="searchTerm" placeholder="What are you looking for?">
+            <button type="submit" class="searchButton">
+              <i class="fa fa-search"></i>
+           </button>
+          </form>
+      </div>
+        <div class="list-group">
+            {% for item_a, item_b in zip(message['link'],message['dec']) %}
+            <li class="list-group-item">
+              <a href="{{ escape(item_a) }}">{{ escape(item_a) }} </a>
+              <p>
+                {{ escape(item_b) }}
+              </p>
+            </li>
+            {% end %}
+        </div>
     </div>
-            
   </body>
 
 </html>
