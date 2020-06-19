@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="{{ static_url("url.css") }}" type="text/css">
 
   </head>
-  <body class="body">
+  <body class="body" >
       <div class="wrap">
         <div>
-          <p>please search your digikala  url for trucomment ! or  search any word !</p>
+          <p>please search your digikala  url for truecomment ! or  search any word !</p>
         </div>
           <form class="search" action="/"  method="post"  >
             <input type="text" name="url" class="searchTerm" placeholder="What are you looking for?">
@@ -19,6 +19,7 @@
               <i class="fa fa-search"></i>
            </button>
           </form>
+          <div>{{ error }}</div>
       </div>
 
 

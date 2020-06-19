@@ -6,6 +6,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from google import google
+import mysql.connector
+
 
 
 define("port", default=8887, help="run on the given port", type=int)
@@ -13,11 +15,11 @@ define("debug", default=True, help="run in debug mode")
 
 
 class db:
-    def coneectdb():
+    def connectdb():
         mydb = mysql.connector.connect(
-        host="172.17.0.4",
+        host="172.18.0.22",
         user="root",
-        passwd="123456",
+        passwd="00797",
         database="url",
         auth_plugin="mysql_native_password"
         )
@@ -39,12 +41,14 @@ class searchUrl(BaseHandler):
                     image = str(soup.find(class_="c-gallery__img"))
                     img = re.search("https://(.*?)/?.jpg",image)
                     prud = soup.find(class_="c-product__params js-is-expandable")
-                    tit = prud.find_all('ul')
-                    print(tit)
-                    #print (prud)
-                    params= soup.find(class_="c-product js-product")
+                    tit = []
+                    for string in prud.strings:
+                        tit.append(string)
+                    price = soup.find(class_="c-product__seller-price-real")
+
                     hi = "hi this is fake comment"
-                    i = {"name": name.text.strip(), "image":img.group(), "hi":hi}
+                    i = {"name": name.text.strip(), "image":img.group(),
+                        "price": price.text.strip(), "tit":tit,"hi":hi}
                     return i
                     #self.render("comment.html", message=params)
 
@@ -52,13 +56,31 @@ class searchUrl(BaseHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        self.render("url.html",)
+        self.render("url.html",error='')
     def post(self):
         url = str(self.get_argument("url"))
         if url:
             if "https://www.digikala.com/" in url:
-                i = searchUrl.DigikalaUrl(self)
-                self.render("comment.html", message=i)
+                sql = "SELECT `url`, `id` FROM `url` WHERE `url` = %s "
+                test = db.connectdb()
+                mycursor = test.cursor()
+                mycursor.execute(sql,(url, ))
+                myresult = mycursor.fetchall()
+                if not myresult:
+                    sql = "INSERT INTO `url`(`url`) VALUES (%s)"
+                    test = db.connectdb()
+                    mycursor = test.cursor()
+                    mycursor.execute(sql, (url,))
+                    test.commit()
+                    i = searchUrl.DigikalaUrl(self)
+                    self.render("comment.html", message=i)
+                    print('hiiiii')
+                else:
+                    #sql = "INSERT INTO `url`(`url`) VALUES (%s)"
+                    i = searchUrl.DigikalaUrl(self)
+                    self.render("comment.html", message=i)
+                    print('hi')
+
             else:
                 sealink=[]
                 seadec=[]
@@ -77,7 +99,7 @@ class MainHandler(BaseHandler):
                 self.render("search.html", message=sea)
                 '''
         else:
-          self.render("comment.html", message="please enter antthing")
+          self.render("url.html", error="please enter anything!")
 
 
 def main():
