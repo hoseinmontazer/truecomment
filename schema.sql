@@ -1,16 +1,73 @@
-<?xml version="1.0"?>
-<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<database name="url">
-	<table_structure name="comment">
-		<field Field="comment" Type="varchar(1000)" Null="NO" Key="" Extra="" Comment="" />
-		<field Field="id" Type="int" Null="NO" Key="" Extra="" Comment="" />
-		<options Name="comment" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="0" Avg_row_length="0" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Create_time="2020-06-01 13:42:44" Collation="utf32_persian_ci" Create_options="" Comment="" />
-	</table_structure>
-	<table_structure name="url">
-		<field Field="url" Type="varchar(300)" Null="NO" Key="" Extra="" Comment="" />
-		<field Field="id" Type="int" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
-		<key Table="url" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="0" Null="" Index_type="BTREE" Comment="" Index_comment="" Visible="YES" />
-		<options Name="url" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="0" Avg_row_length="0" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Auto_increment="1" Create_time="2020-06-01 13:42:08" Collation="utf32_persian_ci" Create_options="" Comment="" />
-	</table_structure>
-</database>
-</mysqldump>
+-- MySQL dump 10.13  Distrib 8.0.20, for Linux (x86_64)
+--
+-- Host: 172.18.0.22    Database: url
+-- ------------------------------------------------------
+-- Server version	8.0.20
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comment` (
+  `comment` varchar(1000) CHARACTER SET utf32 COLLATE utf32_persian_ci NOT NULL,
+  `id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_persian_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comment`
+--
+
+LOCK TABLES `comment` WRITE;
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `url`
+--
+
+DROP TABLE IF EXISTS `url`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `url` (
+  `url` varchar(500) COLLATE utf32_persian_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf32 COLLATE=utf32_persian_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `url`
+--
+
+LOCK TABLES `url` WRITE;
+/*!40000 ALTER TABLE `url` DISABLE KEYS */;
+INSERT INTO `url` VALUES ('https://www.digikala.com/product/dkp-1582581/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%A8%DB%8C-%D8%B3%DB%8C%D9%85-%D8%B4%DB%8C%D8%A7%D8%A6%D9%88%D9%85%DB%8C-%D9%85%D8%AF%D9%84-redmi-airdots',1),('https://www.digikala.com/product/dkp-2674202/%D9%87%D8%AF%D9%81%D9%88%D9%86-%DA%86%D9%85%D9%BE-%D9%85%D8%AF%D9%84-t5000',2),('https://www.digikala.com/product/dkp-1601429/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%A8%DB%8C-%D8%B3%DB%8C%D9%85-%D9%85%D8%AF%D9%84-i2',3),('https://www.digikala.com/product/dkp-403596/%D9%BE%DB%8C%D8%B4%D8%A7%D9%86%DB%8C-%D8%A8%D9%86%D8%AF-%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%A8%DB%8C-%D8%B3%DB%8C%D9%85-%D8%A7%D9%BE%D8%AA%DB%8C%DA%A9%D8%B3-%D9%85%D8%AF%D9%84-mb-57',4);
+/*!40000 ALTER TABLE `url` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-06-19 17:38:38
