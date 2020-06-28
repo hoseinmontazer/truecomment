@@ -26,18 +26,18 @@
           </li>
         </fieldset>
         </div>
-        <div>
+        <div class="col50">
           <fieldset>
-            <form method="POST">
-              <textarea name="comment" placeholder="متن نظر خود را بنویسید"></textarea>
-              <input type="text" name="url" class="searchTerm" placeholder="enter your email">
-              <button type="submit" >ثبت نظر</button>
+            <form class="comment"  action="/comment" method="POST">
+              <textarea class="commentbox" name="commentbox" required placeholder=" نظر خود را بنویسید"></textarea>
+              <input type="email" name="email" class="inputarea"  required placeholder="enter your email">
+              <button  type="submit" class="button" ><span>ثبت نظر</span></button>
             </form>
           </fieldset>
           
           
         </div>
-   </div>
+    </div>
   </body>
 
 </html>

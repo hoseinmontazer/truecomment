@@ -17,9 +17,9 @@ define("debug", default=True, help="run in debug mode")
 class db:
     def connectdb():
         mydb = mysql.connector.connect(
-        host="172.18.0.22",
+        host="172.22.0.2",
         user="root",
-        passwd="00797",
+        passwd="123456",
         database="url",
         auth_plugin="mysql_native_password"
         )
@@ -28,59 +28,102 @@ class db:
 
 
 class BaseHandler(tornado.web.RequestHandler):
-    def get_current_user(self):
-        return  self.get_secure_cookie("user")
+    def get(self):
+        return  self.get_argument("url")
 
 class searchUrl(BaseHandler):
     def DigikalaUrl(self):
-                url = str(self.get_argument("url"))
-                page = requests.get(url)
-                soup = BeautifulSoup(page.content, 'html.parser')
-                name = soup.find(class_="c-product__title")
-                if name:
-                    image = str(soup.find(class_="c-gallery__img"))
-                    img = re.search("https://(.*?)/?.jpg",image)
-                    prud = soup.find(class_="c-product__params js-is-expandable")
-                    tit = []
-                    for string in prud.strings:
-                        tit.append(string)
-                    price = soup.find(class_="c-product__seller-price-real")
+        #url = str(self.get_argument("url"))
+        ur = url
+        page = requests.get(ur)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        name = soup.find(class_="c-product__title")
+        if name:
+            image = str(soup.find(class_="c-gallery__img"))
+            img = re.search("https://(.*?)/?.jpg",image)
+            prud = soup.find(class_="c-product__params js-is-expandable")
+            tit = []
+            for string in prud.strings:
+                tit.append(string)
+            price = soup.find(class_="c-product__seller-price-real")
 
-                    hi = "hi this is fake comment"
-                    i = {"name": name.text.strip(), "image":img.group(),
-                        "price": price.text.strip(), "tit":tit,"hi":hi}
-                    return i
-                    #self.render("comment.html", message=params)
+            hi = "hi this is fake comment"
+            i = {"name": name.text.strip(), "image":img.group(),
+                "price": price.text.strip(), "tit":tit,"hi":hi}
+            return i
+            #self.render("comment.html", message=params)
+    
+    def DigikalaSelect(self,sql):
+        #url = str(self.get_argument("url"))
+        ur = url
+        #sql = "SELECT `url`, `id` FROM `url` WHERE `url` = %s "
+        test = db.connectdb()
+        mycursor = test.cursor()
+        mycursor.execute(sql,(ur, ))
+        myresult = mycursor.fetchall()
+        return myresult
 
-
+    def  DigikalaInsert(self):
+        url = self.get_argument("url")
+        i = searchUrl.DigikalaUrl(self)
+        name = i ["name"]
+        sql = "INSERT INTO `url`(`url`,`urlName`) VALUES (%s , %s)"
+        test = db.connectdb()
+        mycursor = test.cursor()
+        val = (url,name)
+        mycursor.execute(sql, val)
+        test.commit()
+        return
+                
+class InsertComment(BaseHandler):
+    def get(self):
+        print("hiiinsercomment")
+        
+        i = searchUrl.DigikalaUrl(self)
+        self.render("comment.html", message= i)
+        pass 
+    def post(self):
+        i = searchUrl.DigikalaUrl(self)
+        comment = self.get_argument("commentbox")       
+        print(comment)
+        ur = url
+        print(url)
+        sql = "SELECT `id` FROM `url` WHERE `url` = %s "
+        selectId = searchUrl.DigikalaSelect(self,sql)
+        for x in selectId :
+           Id = x[0]
+        sql = "INSERT INTO `comment` (`comment`, `id`) VALUES ( %s, %s )"
+        test = db.connectdb()
+        mycursor = test.cursor()
+        val = (comment,Id)
+        mycursor.execute(sql, val)
+        #mycursor.execute(sql, (comment ,))
+        test.commit()
+        i = searchUrl.DigikalaUrl(self)
+        self.render("comment.html", message= i)
+    
 
 class MainHandler(BaseHandler):
+
+    
     def get(self):
         self.render("url.html",error='')
     def post(self):
+        global url
         url = str(self.get_argument("url"))
         if url:
             if "https://www.digikala.com/" in url:
                 sql = "SELECT `url`, `id` FROM `url` WHERE `url` = %s "
-                test = db.connectdb()
-                mycursor = test.cursor()
-                mycursor.execute(sql,(url, ))
-                myresult = mycursor.fetchall()
+                myresult = searchUrl.DigikalaSelect(self , sql)
+                
                 if not myresult:
-                    sql = "INSERT INTO `url`(`url`) VALUES (%s)"
-                    test = db.connectdb()
-                    mycursor = test.cursor()
-                    mycursor.execute(sql, (url,))
-                    test.commit()
+                    searchUrl.DigikalaInsert(self)
                     i = searchUrl.DigikalaUrl(self)
                     self.render("comment.html", message=i)
-                    print('hiiiii')
+                    return
                 else:
-                    #sql = "INSERT INTO `url`(`url`) VALUES (%s)"
                     i = searchUrl.DigikalaUrl(self)
-                    self.render("comment.html", message=i)
-                    print('hi')
-
+                    return self.render("comment.html", message= i )
             else:
                 sealink=[]
                 seadec=[]
@@ -92,20 +135,15 @@ class MainHandler(BaseHandler):
 
                 sea = {"link":sealink , "dec":seadec}
                 self.render("search.html", message=(sea))
-                '''
-                sea = []
-                for j in search(url, tld="com", num=10, stop=10, pause=2):
-                    sea.append(j)
-                self.render("search.html", message=sea)
-                '''
         else:
           self.render("url.html", error="please enter anything!")
-
+        return
 
 def main():
     tornado.options.parse_command_line()
     application = tornado.web.Application([
     (r"/", MainHandler),
+    (r"/comment", InsertComment),
     ], cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
         static_path=os.path.join(os.path.dirname(__file__), "static"),
