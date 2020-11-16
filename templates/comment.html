@@ -6,10 +6,19 @@
     <title>search</title>
     <link rel="stylesheet" href="{{ static_url("url.css") }}" type="text/css">
   </head>
-<header>
-  <h1>True comment!</h1>
-</header>
+
   <body>
+    <div class="sea" >
+      <div>
+        <p>please search your digikala  url for trucomment ! or  search any word !</p>
+      </div>
+        <form class="search" action="/"  method="post"  >
+          <input type="text" name="url" class="searchTerm" placeholder="What are you looking for?">
+          <button type="submit" class="searchButton">
+            <i class="fa fa-search"></i>
+         </button>
+        </form>
+    </div>
     <div>
         <div class="col50">
         <fieldset>
