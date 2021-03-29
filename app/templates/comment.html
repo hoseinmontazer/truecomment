@@ -25,14 +25,14 @@
              <div class="headerSearch">
              </div>
              <div class="searchContent">
-              {% module Template("message.html", message=message) %}
+                 {% module Template("message.html", message=message) %}
              </div>
         </fieldset>
         <fieldset>
             <h3>Comment</h3>
             <li>
-            {% module linkify(message['hi']) %}
-          </li>
+              {% module linkify(message['hi']) %}
+            </li>
         </fieldset>
         </div>
         <div class="col50">

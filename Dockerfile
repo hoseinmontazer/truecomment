@@ -1,7 +1,9 @@
 FROM python:3
-ADD trueComment.py /
-ADD templates/ /templates
-ADD static/ /static
+workdir /app
+#ADD trueComment.py 
+#ADD templates/ 
+#ADD static/ 
+COPY app .
 RUN pip3 install requests
 RUN pip3 install mysql.connector
 RUN pip3 install pycurl

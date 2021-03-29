@@ -47,25 +47,25 @@ class searchUrl(BaseHandler):
                 tit.append(string)
             price = soup.find(class_="c-product__seller-price-real")
 
-            hi = ("hi this is fake comment","thiss is secend comment")
+            comment ="hi this is fake comment"
             i = {"name": name.text.strip(), "image":img.group(),
-                "price": price.text.strip(), "tit":tit,"hi":hi}
+                "price": price.text.strip(), "tit":tit,"hi":comment}
             return i
-            #self.render("comment.html", message=params)
 
     # select to database
-    def DigikalaSelect(self,sql,urlName):
+    def DigikalaSelect(self,sql):
         #url = str(self.get_argument("url"))
         #sql = "SELECT `url`, `id` FROM `url` WHERE `url` = %s "
+        print("select:", sql)
         test = db.connectdb()
         mycursor = test.cursor()
-        mycursor.execute(sql,(urlName, ))
+        mycursor.execute(sql)
         myresult = mycursor.fetchall()
         return myresult
 
     def  DigikalaInsert(self):
         url = self.get_argument("url")
-        i = searchUrl.DigikalaUrl(self)
+        i = searchUrl.DigikalaUrl(self,url)
         name = i ["name"]
         #print (url , "" ,name)
         sql = "INSERT INTO `url`(`url`,`urlName`) VALUES (%s , %s)"
@@ -122,23 +122,27 @@ class MainHandler(BaseHandler):
     def post(self):
         global url
         url = str(self.get_argument("url"))
+        print(url)
         # update find  url 
         if "https://www.digikala.com/" in url:
             i = searchUrl.DigikalaUrl(self, url)
             urlName = i ["name"]
             if urlName:
-                sql = "SELECT `url`, `id` ,`urlName` FROM `url` WHERE `urlName` = %s "
-                myresult = searchUrl.DigikalaSelect(self , sql, urlName)
+                sql = ("SELECT `url`, `id` ,`urlName` FROM `url` WHERE `urlName` = '%s' " %(urlName))
+                myresult = searchUrl.DigikalaSelect(self , sql )
                 print (myresult)
                 if  not myresult:
+                        print("i am here")
                         searchUrl.DigikalaInsert(self)
-                        i = searchUrl.DigikalaUrl(self)
+                        i = searchUrl.DigikalaUrl(self,url)
                         self.render("comment.html", message=i)
                         print("i am inser name")
-                elif  myresult:        
+                elif  myresult:
+                    print("i am here!!!!")     
                     for row in myresult:
                         if row[2] == urlName:
-                            self.render("comment.html", message=i)
+                            print("printi : ",i)
+                            self.render("comment.html", title="My title", message=i)
                             url_id = row[1]
                             sql = "UPDATE `url` SET `url` = %s  WHERE `url`.`id` = %s ;"
                             searchUrl.DigikalaUpdate(self, sql , url , url_id)

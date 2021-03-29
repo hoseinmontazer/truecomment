@@ -13,6 +13,8 @@ services:
       context: .
     ports:
       - 8887:8887
+    volumes:
+     -  ./app:/app  
     networks:
       webapp:
         ipv4_address: 172.22.0.19 
