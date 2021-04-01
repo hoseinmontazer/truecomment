@@ -82,7 +82,6 @@ class searchUrl(BaseHandler):
             price = soup.find(class_="c-product__seller-price-real")
             sql = ("SELECT `id` FROM `url` WHERE `urlName` = '%s' " %(name.text.strip()))
             selectId = searchUrl.DigikalaSelect(self,sql)
-            print("select id is:",selectId)
             if selectId:
                 for x in selectId :
                         Id = x[0]
@@ -93,7 +92,7 @@ class searchUrl(BaseHandler):
 
             i = {"name": name.text.strip(), "image":img.group(),
                 "price": price.text.strip(), "tit":tit,"hi":truecomment,"captcha":captcha}
-            print(i)
+        
             return i
 
     # select to database
@@ -191,8 +190,8 @@ class MainHandler(BaseHandler):
             url = str(self.get_argument("url"))
             # update find  url 
             if "https://www.digikala.com/" in url:
-                
                 i = searchUrl.DigikalaUrl(self, url)
+                urlName = i["name"]
                 if urlName:
                     sql = ("SELECT `url`, `id` ,`urlName` FROM `url` WHERE `urlName` = '%s' " %(urlName))
                     myresult = searchUrl.DigikalaSelect(self , sql )
@@ -200,7 +199,7 @@ class MainHandler(BaseHandler):
                             print("i am here")
                             searchUrl.DigikalaInsert(self)
                             i = searchUrl.DigikalaUrl(self,url)
-                            self.render("comment.html", error='', message=i)
+                            self.render("comment.html", message=i)
                             print("i am insert name")
                     elif  myresult:
                         print("i am here!!!!")     
