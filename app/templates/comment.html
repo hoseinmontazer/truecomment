@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="{{ static_url("url.css") }}" type="text/css">
   </head>
 
+  <header class="header">
+    <a href="" class="logo">True Comment</a>
+    <input class="menu-btn" type="checkbox" id="menu-btn" />
+    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    <ul class="menu">
+      <li><a href=/>Home</a></li>
+      <li><a href=/contact>Contact</a></li>
+    </ul>
+  </header>
+    
   <body>
     <div class="sea" >
       <div>
@@ -27,12 +37,15 @@
              <div class="searchContent">
                  {% module Template("message.html", message=message) %}
              </div>
+             <div>
         </fieldset>
         <fieldset>
             <h3>Comment</h3>
-            <li>
-              {% module linkify(message['hi']) %}
-            </li>
+            <ul>
+              {% for item in (message['hi']) %}
+                <li>{{ escape(item) }}</li>
+              {% end %}
+            </ul>
         </fieldset>
         </div>
         <div class="col50">
@@ -42,6 +55,7 @@
               <input type="email" name="email" class="inputarea"  required placeholder="enter your email">
               <button  type="submit" class="button" ><span>ثبت نظر</span></button>
             </form>
+            <div>{{ error }}</div>
           </fieldset>
           
           
