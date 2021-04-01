@@ -71,14 +71,16 @@ class searchUrl(BaseHandler):
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html.parser')
         name = soup.find(class_="c-product__title")
+        tit = [""]
         captcha = glob.glob('82822.png')
         if name:
             image = str(soup.find(class_="c-gallery__img"))
             img = re.search("https://(.*?)/?.jpg",image)
             prud = soup.find(class_="c-product__params js-is-expandable")
-            tit = []
-            for string in prud.strings:
-                tit.append(string)
+            print("prud is",prud)
+            if prud:
+                for string in prud.strings:
+                    tit.append(string)
             price = soup.find(class_="c-product__seller-price-real")
             sql = ("SELECT `id` FROM `url` WHERE `urlName` = '%s' " %(name.text.strip()))
             selectId = searchUrl.DigikalaSelect(self,sql)
@@ -89,9 +91,10 @@ class searchUrl(BaseHandler):
                 SqlComment = searchUrl.DigikalaSelect(self,sql1)
                 for c in SqlComment:
                     truecomment.append(str(c[0]))
-
+            print(name.text.strip())
             i = {"name": name.text.strip(), "image":img.group(),
                 "price": price.text.strip(), "tit":tit,"hi":truecomment,"captcha":captcha}
+            print(i)
         
             return i
 
@@ -195,11 +198,11 @@ class MainHandler(BaseHandler):
                 if urlName:
                     sql = ("SELECT `url`, `id` ,`urlName` FROM `url` WHERE `urlName` = '%s' " %(urlName))
                     myresult = searchUrl.DigikalaSelect(self , sql )
+                    print("myresault is:",myresult)
                     if  not myresult:
                             print("i am here")
                             searchUrl.DigikalaInsert(self)
-                            i = searchUrl.DigikalaUrl(self,url)
-                            self.render("comment.html", message=i)
+                            self.render("comment.html",error='', message=i)
                             print("i am insert name")
                     elif  myresult:
                         print("i am here!!!!")     
