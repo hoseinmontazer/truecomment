@@ -67,19 +67,11 @@ class searchUrl(BaseHandler):
         captcha = glob.glob('82822.png')
     def DigikalaUrl(self,url):
         
-        truecomment=[]
+        truecomment=[""]
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html.parser')
         name = soup.find(class_="c-product__title")
-        #n = captchagenerator.gen_cap()
-        #print("captcah is;",n)
-        #captcha = Image.open('./static/captcha/'+str(n)+'.png')
-        #captcha = cv2.imread('82822.png')
-        #with open('./static/captcha/'+str(n)+'.png','wb', errors='ignore') as f:
-        #    captcha = f.read()
-        #print(type(captcha))
         captcha = glob.glob('82822.png')
-        #print("captcha2 is:",captcha)
         if name:
             image = str(soup.find(class_="c-gallery__img"))
             img = re.search("https://(.*?)/?.jpg",image)
@@ -90,12 +82,15 @@ class searchUrl(BaseHandler):
             price = soup.find(class_="c-product__seller-price-real")
             sql = ("SELECT `id` FROM `url` WHERE `urlName` = '%s' " %(name.text.strip()))
             selectId = searchUrl.DigikalaSelect(self,sql)
-            for x in selectId :
-                    Id = x[0]
-            sql1 = ("SELECT `comment` FROM `comment` WHERE `id` = '%s'  " %(Id))
-            SqlComment = searchUrl.DigikalaSelect(self,sql1)
-            for c in SqlComment:
-                truecomment.append(str(c[0]))
+            print("select id is:",selectId)
+            if selectId:
+                for x in selectId :
+                        Id = x[0]
+                sql1 = ("SELECT `comment` FROM `comment` WHERE `id` = '%s'  " %(Id))
+                SqlComment = searchUrl.DigikalaSelect(self,sql1)
+                for c in SqlComment:
+                    truecomment.append(str(c[0]))
+
             i = {"name": name.text.strip(), "image":img.group(),
                 "price": price.text.strip(), "tit":tit,"hi":truecomment,"captcha":captcha}
             print(i)
@@ -148,7 +143,7 @@ class InsertComment(BaseHandler):
         forbiden_words=["سکس","زمین","خدا",]     
         i = searchUrl.DigikalaUrl(self,url)
         if  not comment:
-            print ("comment is:",comment)
+
             self.render("comment.html",error="لطفانظر خود را وارد کنید" , message=i)
         elif not email:
             self.render("comment.html",error="لطفاایمیل خود را وارد کنید" , message=i)
@@ -196,8 +191,8 @@ class MainHandler(BaseHandler):
             url = str(self.get_argument("url"))
             # update find  url 
             if "https://www.digikala.com/" in url:
+                
                 i = searchUrl.DigikalaUrl(self, url)
-                urlName = i ["name"]
                 if urlName:
                     sql = ("SELECT `url`, `id` ,`urlName` FROM `url` WHERE `urlName` = '%s' " %(urlName))
                     myresult = searchUrl.DigikalaSelect(self , sql )
@@ -205,7 +200,7 @@ class MainHandler(BaseHandler):
                             print("i am here")
                             searchUrl.DigikalaInsert(self)
                             i = searchUrl.DigikalaUrl(self,url)
-                            self.render("comment.html", message=i)
+                            self.render("comment.html", error='', message=i)
                             print("i am insert name")
                     elif  myresult:
                         print("i am here!!!!")     
