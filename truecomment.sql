@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.23, for Linux (x86_64)
 --
--- Host: 172.18.0.22    Database: url
+-- Host: localhost    Database: truecomment
 -- ------------------------------------------------------
--- Server version	8.0.20
+-- Server version	8.0.23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,7 +24,8 @@ DROP TABLE IF EXISTS `comment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
   `comment` varchar(1000) CHARACTER SET utf32 COLLATE utf32_persian_ci NOT NULL,
-  `id` int NOT NULL
+  `id` int NOT NULL,
+  `email` varchar(200) COLLATE utf32_persian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,10 +46,11 @@ DROP TABLE IF EXISTS `url`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `url` (
-  `url` varchar(500) COLLATE utf32_persian_ci NOT NULL,
+  `url` varchar(500) CHARACTER SET utf32 COLLATE utf32_persian_ci NOT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
+  `urlName` varchar(400) COLLATE utf32_persian_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf32 COLLATE=utf32_persian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,7 +59,6 @@ CREATE TABLE `url` (
 
 LOCK TABLES `url` WRITE;
 /*!40000 ALTER TABLE `url` DISABLE KEYS */;
-INSERT INTO `url` VALUES ('https://www.digikala.com/product/dkp-1582581/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%A8%DB%8C-%D8%B3%DB%8C%D9%85-%D8%B4%DB%8C%D8%A7%D8%A6%D9%88%D9%85%DB%8C-%D9%85%D8%AF%D9%84-redmi-airdots',1),('https://www.digikala.com/product/dkp-2674202/%D9%87%D8%AF%D9%81%D9%88%D9%86-%DA%86%D9%85%D9%BE-%D9%85%D8%AF%D9%84-t5000',2),('https://www.digikala.com/product/dkp-1601429/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%A8%DB%8C-%D8%B3%DB%8C%D9%85-%D9%85%D8%AF%D9%84-i2',3),('https://www.digikala.com/product/dkp-403596/%D9%BE%DB%8C%D8%B4%D8%A7%D9%86%DB%8C-%D8%A8%D9%86%D8%AF-%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%A8%DB%8C-%D8%B3%DB%8C%D9%85-%D8%A7%D9%BE%D8%AA%DB%8C%DA%A9%D8%B3-%D9%85%D8%AF%D9%84-mb-57',4);
 /*!40000 ALTER TABLE `url` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -70,4 +71,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-19 17:38:38
+-- Dump completed on 2021-04-01 13:09:59
