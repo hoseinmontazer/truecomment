@@ -5,7 +5,6 @@ import os.path
 import requests
 from bs4 import BeautifulSoup
 import re
-from googleapi import google
 import mysql.connector
 import sys
 from PIL import Image, ImageDraw, ImageFont
@@ -14,13 +13,15 @@ import string
 from PIL import Image
 from claptcha import Claptcha
 from captcha.image import ImageCaptcha
-import cv2
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
-import numpy as np
-import io
-import time
+from googlesearch.googlesearch import GoogleSearch
+from googlesearch import search
+#import cv2
+#import matplotlib.pyplot as plt
+#import matplotlib.image as mpimg
+#import matplotlib.pyplot as plt
+#import numpy as np
+#import io
+#import time
 import glob
 
 
@@ -213,24 +214,17 @@ class MainHandler(BaseHandler):
                                 sql = "UPDATE `url` SET `url` = %s  WHERE `url`.`id` = %s ;"
                                 searchUrl.DigikalaUpdate(self, sql , url , url_id)
                                 print(" i am update")
+                                return 
 
-                return 
-
-            
-            #find  fast search modual
             else:
-                print ("hii search")
-                sealink=[]
-                seadec=[]
-                search_results = google.search(url, 3)
-                for result in search_results:
-                        #print(result.link)
-                    sealink.append(str(result.link))
-                    seadec.append(str(result.description))
-                print(sealink)
-                sea = {"link":sealink , "dec":seadec}
-                self.render("search.html", message=(sea))
-           
+                print("hii search")
+                items = search("Google")
+                print ("respons is:", items)
+                for result in items:
+                    print("result:",result)
+
+                self.render("search.html", items=items)                    
+
             
 def main():
     tornado.options.parse_command_line()

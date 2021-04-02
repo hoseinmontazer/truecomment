@@ -6,6 +6,16 @@
     <title>search</title>
     <link rel="stylesheet" href="{{ static_url("url.css") }}" type="text/css">
     <script src="https://kit.fontawesome.com/7b5dab4d7c.js" crossorigin="anonymous"></script>
+  
+    <header class="header">
+      <a href="" class="logo">True Comment</a>
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+      <ul class="menu">
+        <li><a href=/>Home</a></li>
+        <li><a href=/contact>Contact</a></li>
+      </ul>
+    </header>
   <body>
     <div class="pyno">
       <div class="sea" >
@@ -19,16 +29,13 @@
            </button>
           </form>
       </div>
-        <div class="list-group">
-            {% for item_a, item_b in zip(message['link'],message['dec']) %}
-            <li class="list-group-item">
-              <a href="{{ escape(item_a) }}">{{ escape(item_a) }} </a>
-              <p>
-                {{ escape(item_b) }}
-              </p>
-            </li>
-            {% end %}
-        </div>
+      <div class="list-group">
+        <ul>
+          {% for item in items %}
+            <li><a href="{{ escape(item) }}" >{{ escape(item) }}</a></li>
+          {% end %}
+        </ul>
+    </div>
     </div>
   </body>
 

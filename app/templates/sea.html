@@ -1,5 +1,3 @@
-
-<div> {% json.dumps (message['link']) %}  </div>
-<div>{% json.dumps (message['dec']) %}  </div>
+<div class="attrsContent">{i=0 } {% for item in message['sealink[1]'] %} <li>{{ escape(item[i]) }}{i=i+1}</li> {% end %} </div>
     
     
