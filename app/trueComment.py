@@ -218,7 +218,8 @@ class MainHandler(BaseHandler):
 
             else:
                 print("hii search")
-                items = search("Google")
+                print("url is:",url)
+                items = search(url)
                 print ("respons is:", items)
                 for result in items:
                     print("result:",result)
