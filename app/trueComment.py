@@ -194,10 +194,10 @@ class MainHandler(BaseHandler):
             global urlName
             url = str(self.get_argument("url"))
             # update find  url 
-            if "https://www.digikala.com/" in url:
+            if "https://www.digikala.com/" and "dkp-" in url :
                 i = searchUrl.DigikalaUrl(self, url)
-                urlName = i["name"]
-                if urlName:
+                urlName = ""
+                if urlName == i["name"]:
                     sql = ("SELECT `url`, `id` ,`urlName` FROM `url` WHERE `urlName` = '%s' " %(urlName))
                     myresult = searchUrl.DigikalaSelect(self , sql )
                     print("myresault is:",myresult)
