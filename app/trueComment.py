@@ -63,9 +63,9 @@ class captchagenerator(BaseHandler):
 
 class searchUrl(BaseHandler):
     def get(self):
-        n = captchagenerator.gen_cap()
-        print("captcah is;",n)
-        captcha = glob.glob('82822.png')
+        captcha = captchagenerator.gen_cap()
+        print("captcah is;",captcha)
+
     def DigikalaUrl(self,url):
         
         truecomment=[""]
@@ -73,12 +73,13 @@ class searchUrl(BaseHandler):
         soup = BeautifulSoup(page.content, 'html.parser')
         name = soup.find(class_="c-product__title")
         tit = [""]
-        captcha = glob.glob('82822.png')
+        captcha = captchagenerator.gen_cap()
+        print("captcah is;",captcha)
         if name:
             image = str(soup.find(class_="c-gallery__img"))
             img = re.search("https://(.*?)/?.jpg",image)
             prud = soup.find(class_="c-product__params js-is-expandable")
-            print("prud is",prud)
+            #print("prud is",prud)
             if prud:
                 for string in prud.strings:
                     tit.append(string)
@@ -92,7 +93,7 @@ class searchUrl(BaseHandler):
                 SqlComment = searchUrl.DigikalaSelect(self,sql1)
                 for c in SqlComment:
                     truecomment.append(str(c[0]))
-            print(name.text.strip())
+            #print(name.text.strip())
             i = {"name": name.text.strip(), "image":img.group(),
                 "price": price.text.strip(), "tit":tit,"hi":truecomment,"captcha":captcha}
             print(i)

@@ -1,6 +1,5 @@
 <div class="nameContent">{% module linkify(message['name']) %}</div>
 <div class="imageContent"><img  src= "{{(message['image']) }}" height="340" width="340"></div>
-<div class="imageContent"><img  src= "{{(message['captcha']) }}" height="80" width="100"></div>
 
 <div class="attrsContent"> {% for item in message['tit'] %} <li>{{ escape(item) }}</li> {% end %} </div>
 <div class="priceContent"><p>قیمت</p>{% module linkify(message['price']) %}</div>

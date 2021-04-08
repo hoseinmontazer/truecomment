@@ -53,9 +53,28 @@
         <div class="col50">
           <fieldset>
             <form class="comment"  action="/comment" method="POST">
-              <textarea class="commentbox" name="commentbox" required placeholder=" نظر خود را بنویسید"></textarea>
-              <input type="email" name="email" class="inputarea"  required placeholder="enter your email">
-              <button  type="submit" class="button" ><span>ثبت نظر</span></button>
+              <textarea id="commentbox" class="commentbox" name="commentbox" required placeholder=" نظر خود را بنویسید"></textarea>
+              <input id="email" type="email" name="email" class="inputarea"  required placeholder="enter your email">
+              <button  type="submit" class="button" onclick="myFunction()"><span>ثبت نظر</span></button>
+              <script>
+                function myFunction() {
+                  var commentbox = document.getElementById("commentbox").value;
+                  var email = document.getElementById("email").value;
+                  
+                  if (commentbox === "" ){
+                    alert("لطفا قسمت نظر راپر کنید");
+                  }
+                  else if( email ===""){
+                    alert("لطفا ایمیل خود را وارد کنید");
+                  }
+                  else{
+                    alert(" نطر شما با موفقیت ثبت شد");
+                  }
+
+                }
+
+                
+              </script>
             </form>
             <div>{{ error }}</div>
           </fieldset>
