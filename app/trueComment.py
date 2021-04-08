@@ -186,7 +186,7 @@ class Contact(BaseHandler):
 class MainHandler(BaseHandler):
    
     def get(self):
-        captcha = glob.glob('82822.png')
+        #captcha = glob.glob('82822.png')
         self.render("url.html",error='')
 
     def post (self):
@@ -196,8 +196,8 @@ class MainHandler(BaseHandler):
             # update find  url 
             if "https://www.digikala.com/" and "dkp-" in url :
                 i = searchUrl.DigikalaUrl(self, url)
-                urlName = ""
-                if urlName == i["name"]:
+                urlName = i["name"]
+                if urlName :
                     sql = ("SELECT `url`, `id` ,`urlName` FROM `url` WHERE `urlName` = '%s' " %(urlName))
                     myresult = searchUrl.DigikalaSelect(self , sql )
                     print("myresault is:",myresult)
